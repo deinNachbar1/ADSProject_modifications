@@ -51,5 +51,4 @@ class ALU extends Module {
 
   // Simulation-time check: operation must be one of the enum values
   assert(io.operation.isOneOf(ALUOp.all), "Illegal ALUOp: %d", io.operation.asUInt)
-
 }
