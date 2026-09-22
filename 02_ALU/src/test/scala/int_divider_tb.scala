@@ -15,30 +15,30 @@ class UIntDividerTest extends AnyFlatSpec with ChiselScalatestTester {
       dut.clock.setTimeout(0)
 
       dut.io.rst.poke(1.B)
-
-      dut.io.a.poke(29.U)
-      dut.io.b.poke(5.U)
-
       dut.clock.step(1)
-
       dut.io.rst.poke(0.B)
 
-      dut.clock.step(18)
+      var round = 0
 
-      dut.io.valid.expect(1.B)
-      dut.io.q.expect(5.U)
-      dut.io.r.expect(4.U)
+      for(a <- 0 to 32767){ // nur 15 bit da 1 bit für sign verwendet werden muss
+        for(b <- 1 to 32767){
 
-      dut.io.a.poke(20.U)
-      dut.io.b.poke(0.U)
+          val q = a / b
+          val r = a % b
 
-      dut.clock.step(18)
+          dut.io.a.poke(a.U)
+          dut.io.b.poke(b.U)
+          dut.clock.step(18)
+          dut.io.valid.expect(1.B)
+          dut.io.q.expect(q.U)
+          dut.io.r.expect(r.U)
 
-      dut.io.valid.expect(1.B)
-      dut.io.q.expect("b1111111111111111".U)
-      dut.io.r.expect(20.U)
+          val prozent = 100 * round / 1073643522.0
 
-      dut.clock.step(18)
+          println(f"$prozent%.4f%%")
+          round = round + 1
+        }
+      }
     }
   }
 }
