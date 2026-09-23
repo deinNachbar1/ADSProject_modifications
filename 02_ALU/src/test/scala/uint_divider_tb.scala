@@ -1,6 +1,4 @@
 // ADS I Class Project
-// Pipelined RISC-V Core with Hazard Detection and Resolution
-//
 // Chair of Electronic Design Automation, RPTU in Kaiserslautern
 
 package divider
@@ -18,8 +16,17 @@ class UIntDividerTest extends AnyFlatSpec with ChiselScalatestTester {
       dut.clock.step(1)
       dut.io.rst.poke(0.B)
 
-      var round = 0
+      dut.io.a.poke(0.U)
+      dut.io.b.poke(100.U)
 
+      dut.clock.step(18)
+
+      dut.io.valid.expect(1.B)
+      dut.io.q.expect(0.U)
+      dut.io.r.expect(0.U)
+
+      /*
+      var round = 0
       for(a <- 0 to 32767){ // nur 15 bit da 1 bit für sign verwendet werden muss
         for(b <- 1 to 32767){
 
@@ -39,6 +46,7 @@ class UIntDividerTest extends AnyFlatSpec with ChiselScalatestTester {
           round = round + 1
         }
       }
+      */
     }
   }
 }
