@@ -6,15 +6,23 @@ package divider
 import chisel3._
 import chiseltest._
 import org.scalatest.flatspec.AnyFlatSpec
+import scala.util.Random
 
 class UIntDividerTest extends AnyFlatSpec with ChiselScalatestTester {
   "UInt Divider" should "test all" in {
     test(new UIntDivider).withAnnotations(Seq(WriteVcdAnnotation)) { dut =>
       dut.clock.setTimeout(0)
 
+      val rand = new Random()
+      var testNumber = 0
+      var procent = 0.0
+      println(f"$procent%.2f%%")
+
       dut.io.rst.poke(1.B)
       dut.clock.step(1)
       dut.io.rst.poke(0.B)
+
+      //-------------------------------
 
       dut.io.a.poke(0.U)
       dut.io.b.poke(100.U)
@@ -25,28 +33,107 @@ class UIntDividerTest extends AnyFlatSpec with ChiselScalatestTester {
       dut.io.q.expect(0.U)
       dut.io.r.expect(0.U)
 
-      /*
-      var round = 0
-      for(a <- 0 to 32767){ // nur 15 bit da 1 bit für sign verwendet werden muss
-        for(b <- 1 to 32767){
+      testNumber += 1
+      procent = testNumber / 100.0
+      println(f"$procent%.2f%%")
 
-          val q = a / b
-          val r = a % b
+      //---------------------------------
 
-          dut.io.a.poke(a.U)
-          dut.io.b.poke(b.U)
-          dut.clock.step(18)
-          dut.io.valid.expect(1.B)
-          dut.io.q.expect(q.U)
-          dut.io.r.expect(r.U)
+      dut.io.a.poke(100.U)
+      dut.io.b.poke(0.U)
 
-          val prozent = 100 * round / 1073643522.0
+      dut.clock.step(18)
 
-          println(f"$prozent%.4f%%")
-          round = round + 1
-        }
+      dut.io.valid.expect(1.B)
+      dut.io.q.expect(65535.U)
+      dut.io.r.expect(100.U)
+
+      testNumber += 1
+      procent = testNumber / 100.0
+      println(f"$procent%.2f%%")
+
+      //---------------------------------
+
+      dut.io.a.poke(0.U)
+      dut.io.b.poke(0.U)
+
+      dut.clock.step(18)
+
+      dut.io.valid.expect(1.B)
+      dut.io.q.expect(65535.U)
+      dut.io.r.expect(0.U)
+
+      testNumber += 1
+      procent = testNumber / 100.0
+      println(f"$procent%.2f%%")
+
+      //---------------------------------
+
+      dut.io.a.poke(32768.U)
+      dut.io.b.poke(32768.U)
+
+      dut.clock.step(18)
+
+      dut.io.valid.expect(1.B)
+      dut.io.q.expect(1.U)
+      dut.io.r.expect(0.U)
+
+      testNumber += 1
+      procent = testNumber / 100.0
+      println(f"$procent%.2f%%")
+
+      //---------------------------------
+
+      dut.io.a.poke(0.U)
+      dut.io.b.poke(32768.U)
+
+      dut.clock.step(18)
+
+      dut.io.valid.expect(1.B)
+      dut.io.q.expect(0.U)
+      dut.io.r.expect(0.U)
+
+      testNumber += 1
+      procent = testNumber / 100.0
+      println(f"$procent%.2f%%")
+
+      //---------------------------------
+
+      dut.io.a.poke(32768.U)
+      dut.io.b.poke(0.U)
+
+      dut.clock.step(18)
+
+      dut.io.valid.expect(1.B)
+      dut.io.q.expect(65535.U)
+      dut.io.r.expect(32768.U)
+
+      testNumber += 1
+      procent = testNumber / 100.0
+      println(f"$procent%.2f%%")
+
+      //---------------------------------
+
+      // rst in progress test ........
+
+      for(i <- 0 to 9993){
+        val a = rand.nextInt(32769) // 0 to 32768
+        val b = rand.nextInt(32769) // 0 to 32768
+
+        val q = if (b != 0) a / b else 65535
+        val r = if (b != 0) a % b else a
+
+        dut.io.a.poke(a.U)
+        dut.io.b.poke(b.U)
+        dut.clock.step(18)
+        dut.io.valid.expect(1.B)
+        dut.io.q.expect(q.U)
+        dut.io.r.expect(r.U)
+
+        testNumber += 1
+        procent = testNumber / 100.0
+        println(f"$procent%.2f%%")
       }
-      */
     }
   }
 }
