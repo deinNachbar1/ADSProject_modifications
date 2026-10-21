@@ -35,7 +35,7 @@ class UIntDividerTest extends AnyFlatSpec with ChiselScalatestTester {
 
       testNumber += 1
       procent = testNumber / 100.0
-      println(f"UInt Test: $procent%.2f%%")
+      println(f"UInt Test: $procent%.2f%% (0 / 100 = 0, Remainder: 0)")
 
       //---------------------------------
 
@@ -50,7 +50,7 @@ class UIntDividerTest extends AnyFlatSpec with ChiselScalatestTester {
 
       testNumber += 1
       procent = testNumber / 100.0
-      println(f"UInt Test: $procent%.2f%%")
+      println(f"UInt Test: $procent%.2f%% (100 / 0 = 65535, Remainder: 100)")
 
       //---------------------------------
 
@@ -65,7 +65,7 @@ class UIntDividerTest extends AnyFlatSpec with ChiselScalatestTester {
 
       testNumber += 1
       procent = testNumber / 100.0
-      println(f"UInt Test: $procent%.2f%%")
+      println(f"UInt Test: $procent%.2f%% (0 / 0 = 65535, Remainder: 0)")
 
       //---------------------------------
 
@@ -80,7 +80,7 @@ class UIntDividerTest extends AnyFlatSpec with ChiselScalatestTester {
 
       testNumber += 1
       procent = testNumber / 100.0
-      println(f"UInt Test: $procent%.2f%%")
+      println(f"UInt Test: $procent%.2f%% (32768 / 32768 = 1, Remainder: 0)")
 
       //---------------------------------
 
@@ -95,7 +95,7 @@ class UIntDividerTest extends AnyFlatSpec with ChiselScalatestTester {
 
       testNumber += 1
       procent = testNumber / 100.0
-      println(f"UInt Test: $procent%.2f%%")
+      println(f"UInt Test: $procent%.2f%% (0 / 32768 = 0, Remainder: 0)")
 
       //---------------------------------
 
@@ -110,7 +110,7 @@ class UIntDividerTest extends AnyFlatSpec with ChiselScalatestTester {
 
       testNumber += 1
       procent = testNumber / 100.0
-      println(f"UInt Test: $procent%.2f%%")
+      println(f"UInt Test: $procent%.2f%% (32768 / 0 = 65535, Remainder: 32768)")
 
       //---------------------------------
 
@@ -132,7 +132,7 @@ class UIntDividerTest extends AnyFlatSpec with ChiselScalatestTester {
 
         testNumber += 1
         procent = testNumber / 100.0
-        println(f"UInt Test: $procent%.2f%%")
+        println(f"UInt Test: $procent%.2f%% ($a / $b = $q, Remainder: $r)")
       }
     }
   }

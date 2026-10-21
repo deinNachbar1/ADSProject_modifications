@@ -35,7 +35,7 @@ class SIntDividerTest extends AnyFlatSpec with ChiselScalatestTester {
 
       testNumber += 1
       procent = testNumber / 100.0
-      println(f"SInt Test: $procent%.2f%%")
+      println(f"SInt Test: $procent%.2f%% (0 / 100 = 0, Remainder: 0)")
 
       //---------------------------------
 
@@ -50,7 +50,7 @@ class SIntDividerTest extends AnyFlatSpec with ChiselScalatestTester {
 
       testNumber += 1
       procent = testNumber / 100.0
-      println(f"SInt Test: $procent%.2f%%")
+      println(f"SInt Test: $procent%.2f%% (100 / 0 = 32767, Remainder: 100)")
 
       //---------------------------------
 
@@ -65,7 +65,7 @@ class SIntDividerTest extends AnyFlatSpec with ChiselScalatestTester {
 
       testNumber += 1
       procent = testNumber / 100.0
-      println(f"SInt Test: $procent%.2f%%")
+      println(f"SInt Test: $procent%.2f%% (0 / 0 = 32767, Remainder: 0)")
 
       //---------------------------------
 
@@ -80,7 +80,7 @@ class SIntDividerTest extends AnyFlatSpec with ChiselScalatestTester {
 
       testNumber += 1
       procent = testNumber / 100.0
-      println(f"SInt Test: $procent%.2f%%")
+      println(f"SInt Test: $procent%.2f%% (32767 / 32767 = 1, Remainder: 0)")
 
       //---------------------------------
 
@@ -95,7 +95,7 @@ class SIntDividerTest extends AnyFlatSpec with ChiselScalatestTester {
 
       testNumber += 1
       procent = testNumber / 100.0
-      println(f"SInt Test: $procent%.2f%%")
+      println(f"SInt Test: $procent%.2f%% (0 / 32767 = 0, Remainder: 0)")
 
       //---------------------------------
 
@@ -110,7 +110,7 @@ class SIntDividerTest extends AnyFlatSpec with ChiselScalatestTester {
 
       testNumber += 1
       procent = testNumber / 100.0
-      println(f"SInt Test: $procent%.2f%%")
+      println(f"SInt Test: $procent%.2f%% (32767 / 0 = 32767, Remainder: 32767)")
 
       //---------------------------------
 
@@ -125,7 +125,7 @@ class SIntDividerTest extends AnyFlatSpec with ChiselScalatestTester {
 
       testNumber += 1
       procent = testNumber / 100.0
-      println(f"SInt Test: $procent%.2f%%")
+      println(f"SInt Test: $procent%.2f%% (-32768 / 1 = -32768, Remainder: 0)")
 
       //---------------------------------
 
@@ -140,7 +140,7 @@ class SIntDividerTest extends AnyFlatSpec with ChiselScalatestTester {
 
       testNumber += 1
       procent = testNumber / 100.0
-      println(f"SInt Test: $procent%.2f%%")
+      println(f"SInt Test: $procent%.2f%% (-32768 / -1 = -32768, Remainder: 0)")
 
       //---------------------------------
 
@@ -155,7 +155,7 @@ class SIntDividerTest extends AnyFlatSpec with ChiselScalatestTester {
 
       testNumber += 1
       procent = testNumber / 100.0
-      println(f"SInt Test: $procent%.2f%%")
+      println(f"SInt Test: $procent%.2f%% (32767 / -1 = -32767, Remainder: 0)")
 
       //---------------------------------
 
@@ -170,7 +170,7 @@ class SIntDividerTest extends AnyFlatSpec with ChiselScalatestTester {
 
       testNumber += 1
       procent = testNumber / 100.0
-      println(f"SInt Test: $procent%.2f%%")
+      println(f"SInt Test: $procent%.2f%% (-7 / 3 = -2, Remainder: -1)")
 
       //---------------------------------
 
@@ -185,7 +185,7 @@ class SIntDividerTest extends AnyFlatSpec with ChiselScalatestTester {
 
       testNumber += 1
       procent = testNumber / 100.0
-      println(f"SInt Test: $procent%.2f%%")
+      println(f"SInt Test: $procent%.2f%% (7 / -3 = -2, Remainder: 1)")
 
       //---------------------------------
 
@@ -200,7 +200,7 @@ class SIntDividerTest extends AnyFlatSpec with ChiselScalatestTester {
 
       testNumber += 1
       procent = testNumber / 100.0
-      println(f"SInt Test: $procent%.2f%%")
+      println(f"SInt Test: $procent%.2f%% (-7 / -3 = 2, Remainder: -1)")
 
       //---------------------------------
 
@@ -215,7 +215,7 @@ class SIntDividerTest extends AnyFlatSpec with ChiselScalatestTester {
 
       testNumber += 1
       procent = testNumber / 100.0
-      println(f"SInt Test: $procent%.2f%%")
+      println(f"SInt Test: $procent%.2f%% (-32768 / 2 = -16384, Remainder: 0)")
 
       //---------------------------------
 
@@ -230,7 +230,7 @@ class SIntDividerTest extends AnyFlatSpec with ChiselScalatestTester {
 
       testNumber += 1
       procent = testNumber / 100.0
-      println(f"SInt Test: $procent%.2f%%")
+      println(f"SInt Test: $procent%.2f%% (32767 / 2 = 16383, Remainder: 1)")
 
       //---------------------------------
 
@@ -253,7 +253,7 @@ class SIntDividerTest extends AnyFlatSpec with ChiselScalatestTester {
 
         testNumber += 1
         procent = testNumber / 100.0
-        println(f"SInt Test: $procent%.2f%%")
+        println(f"SInt Test: $procent%.2f%% ($a / $b = $q, Remainder: $r)")
       }
     }
   }
