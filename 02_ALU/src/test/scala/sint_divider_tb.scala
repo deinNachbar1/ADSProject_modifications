@@ -16,7 +16,7 @@ class SIntDividerTest extends AnyFlatSpec with ChiselScalatestTester {
       val rand = new Random()
       var testNumber = 0
       var procent = 0.0
-      println(f"$procent%.2f%%")
+      println(f"SInt Test: $procent%.2f%%")
 
       dut.io.rst.poke(1.B)
       dut.clock.step(1)
@@ -35,7 +35,7 @@ class SIntDividerTest extends AnyFlatSpec with ChiselScalatestTester {
 
       testNumber += 1
       procent = testNumber / 100.0
-      println(f"$procent%.2f%%")
+      println(f"SInt Test: $procent%.2f%%")
 
       //---------------------------------
 
@@ -50,7 +50,7 @@ class SIntDividerTest extends AnyFlatSpec with ChiselScalatestTester {
 
       testNumber += 1
       procent = testNumber / 100.0
-      println(f"$procent%.2f%%")
+      println(f"SInt Test: $procent%.2f%%")
 
       //---------------------------------
 
@@ -60,17 +60,17 @@ class SIntDividerTest extends AnyFlatSpec with ChiselScalatestTester {
       dut.clock.step(18)
 
       dut.io.valid.expect(1.B)
-      dut.io.q.expect(65535.S)
+      dut.io.q.expect(32767.S)
       dut.io.r.expect(0.S)
 
       testNumber += 1
       procent = testNumber / 100.0
-      println(f"$procent%.2f%%")
+      println(f"SInt Test: $procent%.2f%%")
 
       //---------------------------------
 
-      dut.io.a.poke(32768.S)
-      dut.io.b.poke(32768.S)
+      dut.io.a.poke(32767.S)
+      dut.io.b.poke(32767.S)
 
       dut.clock.step(18)
 
@@ -80,12 +80,12 @@ class SIntDividerTest extends AnyFlatSpec with ChiselScalatestTester {
 
       testNumber += 1
       procent = testNumber / 100.0
-      println(f"$procent%.2f%%")
+      println(f"SInt Test: $procent%.2f%%")
 
       //---------------------------------
 
       dut.io.a.poke(0.S)
-      dut.io.b.poke(32768.S)
+      dut.io.b.poke(32767.S)
 
       dut.clock.step(18)
 
@@ -95,26 +95,146 @@ class SIntDividerTest extends AnyFlatSpec with ChiselScalatestTester {
 
       testNumber += 1
       procent = testNumber / 100.0
-      println(f"$procent%.2f%%")
+      println(f"SInt Test: $procent%.2f%%")
 
       //---------------------------------
 
-      dut.io.a.poke(32768.S)
+      dut.io.a.poke(32767.S)
       dut.io.b.poke(0.S)
 
       dut.clock.step(18)
 
       dut.io.valid.expect(1.B)
-      dut.io.q.expect(65535.S)
-      dut.io.r.expect(32768.S)
+      dut.io.q.expect(32767.S)
+      dut.io.r.expect(32767.S)
 
       testNumber += 1
       procent = testNumber / 100.0
-      println(f"$procent%.2f%%")
+      println(f"SInt Test: $procent%.2f%%")
 
       //---------------------------------
 
-      for(i <- 0 to 9993){
+      dut.io.a.poke(-32768.S)
+      dut.io.b.poke(1.S)
+
+      dut.clock.step(18)
+
+      dut.io.valid.expect(1.B)
+      dut.io.q.expect(-32768.S)
+      dut.io.r.expect(0.S)
+
+      testNumber += 1
+      procent = testNumber / 100.0
+      println(f"SInt Test: $procent%.2f%%")
+
+      //---------------------------------
+
+      dut.io.a.poke(-32768.S)
+      dut.io.b.poke(-1.S)
+
+      dut.clock.step(18)
+
+      dut.io.valid.expect(1.B)
+      dut.io.q.expect(-32768.S)
+      dut.io.r.expect(0.S)
+
+      testNumber += 1
+      procent = testNumber / 100.0
+      println(f"SInt Test: $procent%.2f%%")
+
+      //---------------------------------
+
+      dut.io.a.poke(32767.S)
+      dut.io.b.poke(-1.S)
+
+      dut.clock.step(18)
+
+      dut.io.valid.expect(1.B)
+      dut.io.q.expect(-32767.S)
+      dut.io.r.expect(0.S)
+
+      testNumber += 1
+      procent = testNumber / 100.0
+      println(f"SInt Test: $procent%.2f%%")
+
+      //---------------------------------
+
+      dut.io.a.poke(-7.S)
+      dut.io.b.poke(3.S)
+
+      dut.clock.step(18)
+
+      dut.io.valid.expect(1.B)
+      dut.io.q.expect(-2.S)
+      dut.io.r.expect(-1.S)
+
+      testNumber += 1
+      procent = testNumber / 100.0
+      println(f"SInt Test: $procent%.2f%%")
+
+      //---------------------------------
+
+      dut.io.a.poke(7.S)
+      dut.io.b.poke(-3.S)
+
+      dut.clock.step(18)
+
+      dut.io.valid.expect(1.B)
+      dut.io.q.expect(-2.S)
+      dut.io.r.expect(1.S)
+
+      testNumber += 1
+      procent = testNumber / 100.0
+      println(f"SInt Test: $procent%.2f%%")
+
+      //---------------------------------
+
+      dut.io.a.poke(-7.S)
+      dut.io.b.poke(-3.S)
+
+      dut.clock.step(18)
+
+      dut.io.valid.expect(1.B)
+      dut.io.q.expect(2.S)
+      dut.io.r.expect(-1.S)
+
+      testNumber += 1
+      procent = testNumber / 100.0
+      println(f"SInt Test: $procent%.2f%%")
+
+      //---------------------------------
+
+      dut.io.a.poke(-32768.S)
+      dut.io.b.poke(2.S)
+
+      dut.clock.step(18)
+
+      dut.io.valid.expect(1.B)
+      dut.io.q.expect(-16384.S)
+      dut.io.r.expect(0.S)
+
+      testNumber += 1
+      procent = testNumber / 100.0
+      println(f"SInt Test: $procent%.2f%%")
+
+      //---------------------------------
+
+      dut.io.a.poke(32767.S)
+      dut.io.b.poke(2.S)
+
+      dut.clock.step(18)
+
+      dut.io.valid.expect(1.B)
+      dut.io.q.expect(16383.S)
+      dut.io.r.expect(1.S)
+
+      testNumber += 1
+      procent = testNumber / 100.0
+      println(f"SInt Test: $procent%.2f%%")
+
+      //---------------------------------
+
+      for(i <- 0 to 9985){
         val a = rand.nextInt(65536) - 32768 // -32768 to 32767
         var b = 0
         while (b == 0) {
@@ -133,7 +253,7 @@ class SIntDividerTest extends AnyFlatSpec with ChiselScalatestTester {
 
         testNumber += 1
         procent = testNumber / 100.0
-        println(f"$procent%.2f%%")
+        println(f"SInt Test: $procent%.2f%%")
       }
     }
   }

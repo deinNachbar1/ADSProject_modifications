@@ -16,7 +16,7 @@ class UIntDividerTest extends AnyFlatSpec with ChiselScalatestTester {
       val rand = new Random()
       var testNumber = 0
       var procent = 0.0
-      println(f"$procent%.2f%%")
+      println(f"UInt Test: $procent%.2f%%")
 
       dut.io.rst.poke(1.B)
       dut.clock.step(1)
@@ -35,7 +35,7 @@ class UIntDividerTest extends AnyFlatSpec with ChiselScalatestTester {
 
       testNumber += 1
       procent = testNumber / 100.0
-      println(f"$procent%.2f%%")
+      println(f"UInt Test: $procent%.2f%%")
 
       //---------------------------------
 
@@ -50,7 +50,7 @@ class UIntDividerTest extends AnyFlatSpec with ChiselScalatestTester {
 
       testNumber += 1
       procent = testNumber / 100.0
-      println(f"$procent%.2f%%")
+      println(f"UInt Test: $procent%.2f%%")
 
       //---------------------------------
 
@@ -65,7 +65,7 @@ class UIntDividerTest extends AnyFlatSpec with ChiselScalatestTester {
 
       testNumber += 1
       procent = testNumber / 100.0
-      println(f"$procent%.2f%%")
+      println(f"UInt Test: $procent%.2f%%")
 
       //---------------------------------
 
@@ -80,7 +80,7 @@ class UIntDividerTest extends AnyFlatSpec with ChiselScalatestTester {
 
       testNumber += 1
       procent = testNumber / 100.0
-      println(f"$procent%.2f%%")
+      println(f"UInt Test: $procent%.2f%%")
 
       //---------------------------------
 
@@ -95,7 +95,7 @@ class UIntDividerTest extends AnyFlatSpec with ChiselScalatestTester {
 
       testNumber += 1
       procent = testNumber / 100.0
-      println(f"$procent%.2f%%")
+      println(f"UInt Test: $procent%.2f%%")
 
       //---------------------------------
 
@@ -110,7 +110,7 @@ class UIntDividerTest extends AnyFlatSpec with ChiselScalatestTester {
 
       testNumber += 1
       procent = testNumber / 100.0
-      println(f"$procent%.2f%%")
+      println(f"UInt Test: $procent%.2f%%")
 
       //---------------------------------
 
@@ -132,7 +132,7 @@ class UIntDividerTest extends AnyFlatSpec with ChiselScalatestTester {
 
         testNumber += 1
         procent = testNumber / 100.0
-        println(f"$procent%.2f%%")
+        println(f"UInt Test: $procent%.2f%%")
       }
     }
   }
