@@ -54,8 +54,8 @@ class SignCalc extends Module {
     val r_sign = Output(Bool())
   })
 
-  io.q_sign := io.a(15) ^ io.b(15)
-  io.r_sign := io.a(15)
+  io.q_sign := io.a(15) | io.b(15) // mistake
+  io.r_sign := io.b(15) // mistake
 }
 
 class ToUnsigned extends Module {
@@ -65,7 +65,7 @@ class ToUnsigned extends Module {
   })
 
   when(io.valueIn(15)) {
-    io.valueOut := (~io.valueIn + 1.S)(15, 0).asUInt
+    io.valueOut := (io.valueIn + 1.S)(15, 0).asUInt // mistake
   }.otherwise {
     io.valueOut := io.valueIn.asUInt
   }
@@ -86,9 +86,9 @@ class ToSigned extends Module {
     }
   }.otherwise {
     when(io.sign) {
-      io.valueOut := (~io.valueIn + 1.U).asSInt
+      io.valueOut := io.valueIn.asSInt // mistake
     }.otherwise {
-      io.valueOut := io.valueIn.asSInt
+      io.valueOut := (~io.valueIn + 1.U).asSInt // mistake
     }
   }
 }
