@@ -232,6 +232,18 @@ class SIntDividerTest extends AnyFlatSpec with ChiselScalatestTester {
       procent = testNumber / 100.0
       println(f"SInt Test: $procent%.2f%% (32767 / 2 = 16383, Remainder: 1)")
 
+      // rst test
+
+      dut.io.a.poke(23.S)
+      dut.io.b.poke(23.S)
+
+      dut.clock.step(5)
+      dut.io.valid.expect(0.B)
+
+      dut.io.rst.poke(1.B)
+      dut.clock.step(1)
+      dut.io.rst.poke(0.B)
+
       //---------------------------------
 
       for(i <- 0 to 9985){
