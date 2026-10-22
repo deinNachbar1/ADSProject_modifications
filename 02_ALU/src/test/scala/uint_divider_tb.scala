@@ -112,9 +112,17 @@ class UIntDividerTest extends AnyFlatSpec with ChiselScalatestTester {
       procent = testNumber / 100.0
       println(f"UInt Test: $procent%.2f%% (32768 / 0 = 65535, Remainder: 32768)")
 
-      //---------------------------------
+      // rst test
 
-      // rst in progress test ........
+      dut.io.a.poke(23.U)
+      dut.io.b.poke(23.U)
+
+      dut.clock.step(5)
+      dut.io.valid.expect(0.B)
+
+      dut.io.rst.poke(1.B)
+      dut.clock.step(1)
+      dut.io.rst.poke(0.B)
 
       for(i <- 0 to 9993){
         val a = rand.nextInt(32769) // 0 to 32768
