@@ -78,17 +78,9 @@ class ToSigned extends Module {
     val valueOut = Output(SInt(16.W))
   })
 
-  when(io.valueIn === 65535.U) {
-    when(io.sign) {
-      io.valueOut := -32768.S
-    }.otherwise {
-      io.valueOut := 32767.S
-    }
+  when(io.sign) {
+    io.valueOut := (~io.valueIn + 1.U).asSInt
   }.otherwise {
-    when(io.sign) {
-      io.valueOut := (~io.valueIn + 1.U).asSInt
-    }.otherwise {
-      io.valueOut := io.valueIn.asSInt
-    }
+    io.valueOut := io.valueIn.asSInt
   }
 }

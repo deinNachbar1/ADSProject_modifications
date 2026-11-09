@@ -1,19 +1,15 @@
 package divider
 
 import chisel3._
-import chisel3.util._
 
 class SIntDivider extends Module {
   val io = IO(new Bundle {
-    val a = Input(SInt(16.W))   // Operand A (int 16 bit)
-    val b = Input(SInt(16.W))   // Operand B (int 16 bit)
-
-    val rst = Input(Bool())     // Reset
-
-    val q = Output(SInt(16.W))  // Quotient
-    val r = Output(SInt(16.W))  // Remainder
-
-    val valid = Output(Bool())  // Valid
+    val a = Input(SInt(16.W))
+    val b = Input(SInt(16.W))
+    val rst = Input(Bool())
+    val q = Output(SInt(16.W))
+    val r = Output(SInt(16.W))
+    val valid = Output(Bool())
   })
 
   val uIntDivider = Module(new UIntDivider)
@@ -24,24 +20,18 @@ class SIntDivider extends Module {
   val toSigned_r = Module(new ToSigned)
 
   uIntDivider.io.rst := io.rst
-
   toUnsigned_a.io.valueIn := io.a
   toUnsigned_b.io.valueIn := io.b
   uIntDivider.io.a := toUnsigned_a.io.valueOut
   uIntDivider.io.b := toUnsigned_b.io.valueOut
-
   signCalc.io.a := io.a
   signCalc.io.b := io.b
-
   toSigned_q.io.valueIn := uIntDivider.io.q
   toSigned_q.io.sign := signCalc.io.q_sign
-
   toSigned_r.io.valueIn := uIntDivider.io.r
   toSigned_r.io.sign := signCalc.io.r_sign
-
   io.q := toSigned_q.io.valueOut
   io.r := toSigned_r.io.valueOut
-
   io.valid := uIntDivider.io.valid
 }
 
@@ -49,13 +39,12 @@ class SignCalc extends Module {
   val io = IO(new Bundle {
     val a = Input(SInt(16.W))
     val b = Input(SInt(16.W))
-
     val q_sign = Output(Bool())
     val r_sign = Output(Bool())
   })
 
-  io.q_sign := io.a(15) | io.b(15) // mistake
-  io.r_sign := io.b(15) // mistake
+  io.q_sign := io.a(15) | io.b(15)
+  io.r_sign := io.b(15)
 }
 
 class ToUnsigned extends Module {
@@ -65,7 +54,7 @@ class ToUnsigned extends Module {
   })
 
   when(io.valueIn(15)) {
-    io.valueOut := (io.valueIn + 1.S)(15, 0).asUInt // mistake
+    io.valueOut := (~io.valueIn).asUInt
   }.otherwise {
     io.valueOut := io.valueIn.asUInt
   }
@@ -78,17 +67,9 @@ class ToSigned extends Module {
     val valueOut = Output(SInt(16.W))
   })
 
-  when(io.valueIn === 65535.U) {
-    when(io.sign) {
-      io.valueOut := -32768.S
-    }.otherwise {
-      io.valueOut := 32767.S
-    }
+  when(io.sign) {
+    io.valueOut := (~io.valueIn + 1.U).asSInt
   }.otherwise {
-    when(io.sign) {
-      io.valueOut := io.valueIn.asSInt // mistake
-    }.otherwise {
-      io.valueOut := (~io.valueIn + 1.U).asSInt // mistake
-    }
+    io.valueOut := io.valueIn.asSInt
   }
 }
