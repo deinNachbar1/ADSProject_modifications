@@ -7,15 +7,15 @@ import org.scalatest.flatspec.AnyFlatSpec
 class SIntDividerTest extends AnyFlatSpec with ChiselScalatestTester {
   "SignCalc" should "handle two negative operands" in {
     test(new SignCalc) { dut =>
-      dut.io.a.poke((-8).S)
-      dut.io.b.poke((-2).S)
+      dut.io.a.poke(-8.S)
+      dut.io.b.poke(-2.S)
       dut.io.q_sign.expect(false.B)
     }
   }
 
   it should "use the dividend sign for the remainder" in {
     test(new SignCalc) { dut =>
-      dut.io.a.poke((-8).S)
+      dut.io.a.poke(-8.S)
       dut.io.b.poke(2.S)
       dut.io.r_sign.expect(true.B)
     }
@@ -23,16 +23,16 @@ class SIntDividerTest extends AnyFlatSpec with ChiselScalatestTester {
 
   "ToUnsigned" should "convert a negative value" in {
     test(new ToUnsigned) { dut =>
-      dut.io.valueIn.poke((-5).S)
+      dut.io.valueIn.poke(-5.S)
       dut.io.valueOut.expect(5.U)
     }
   }
 
   "ToSigned" should "output negative sign" in {
     test(new ToSigned) { dut =>
-      dut.io.valueIn.poke("hf123".U)
-      dut.io.sign.poke(false.B)
-      dut.io.valueOut.expect((-1).S)
+      dut.io.valueIn.poke(10.U)
+      dut.io.sign.poke(true.B)
+      dut.io.valueOut.expect(-10.S)
     }
   }
 
@@ -79,25 +79,25 @@ class SIntDividerTest extends AnyFlatSpec with ChiselScalatestTester {
     }
   }
 
-  "SIntDivider" should "cover signed division edge cases in sequence" in {
+  "SIntDivider" should "cover some signed division edge cases" in {
     test(new SIntDivider) { dut =>
       dut.io.rst.poke(true.B)
       dut.clock.step(1)
       dut.io.rst.poke(false.B)
 
-      dut.io.a.poke((-32768).S)
-      dut.io.b.poke((-1).S)
+      dut.io.a.poke(-32768.S)
+      dut.io.b.poke(-1.S)
       dut.clock.step(18)
       dut.io.valid.expect(true.B)
-      dut.io.q.expect((-32768).S)
+      dut.io.q.expect(-32768.S)
       dut.io.r.expect(0.S)
 
-      dut.io.a.poke((-32768).S)
+      dut.io.a.poke(-32768.S)
       dut.io.b.poke(3.S)
       dut.clock.step(18)
       dut.io.valid.expect(true.B)
-      dut.io.q.expect((-10922).S)
-      dut.io.r.expect((-2).S)
+      dut.io.q.expect(-10922.S)
+      dut.io.r.expect(-2.S)
 
       dut.io.a.poke(32767.S)
       dut.io.b.poke(1.S)
@@ -107,17 +107,17 @@ class SIntDividerTest extends AnyFlatSpec with ChiselScalatestTester {
       dut.io.r.expect(0.S)
 
       dut.io.a.poke(17.S)
-      dut.io.b.poke((-5).S)
+      dut.io.b.poke(-5.S)
       dut.clock.step(18)
       dut.io.valid.expect(true.B)
-      dut.io.q.expect((-3).S)
+      dut.io.q.expect(-3.S)
       dut.io.r.expect(2.S)
 
       dut.io.a.poke(0.S)
       dut.io.b.poke(0.S)
       dut.clock.step(18)
       dut.io.valid.expect(true.B)
-      dut.io.q.expect((-1).S)
+      dut.io.q.expect(-1.S)
       dut.io.r.expect(0.S)
     }
   }

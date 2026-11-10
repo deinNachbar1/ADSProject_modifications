@@ -6,13 +6,13 @@ import Assignment02.{ALU, ALUOp}
 
 class UIntDivider extends Module {
   val io = IO(new Bundle {
-    val a = Input(UInt(16.W))   // Operand A (uint 16 bit)
-    val b = Input(UInt(16.W))   // Operand B (uint 16 bit
-    val rst = Input(Bool())  // Reset
+    val a = Input(UInt(16.W))
+    val b = Input(UInt(16.W))
+    val rst = Input(Bool())
 
-    val q = Output(UInt(16.W))  // Quotient
-    val r = Output(UInt(16.W))  // Remainder
-    val valid = Output(Bool())  // Valid
+    val q = Output(UInt(16.W))
+    val r = Output(UInt(16.W))
+    val valid = Output(Bool())
   })
 
   val controller = Module(new Controller)
@@ -65,7 +65,7 @@ class Controller extends Module {
       remainderRegister.io.write := true.B
       divisorRegister.io.load := true.B
       iteration := iteration + 1.U
-    }.elsewhen(iteration === 18.U) {
+    }.elsewhen(iteration === 18.U) { //bug: }.elsewhen(iteration === 17.U) {
       remainderRegister.io.write := true.B
       divisorRegister.io.load := true.B
       io.valid := true.B
@@ -95,7 +95,7 @@ class DivisorRegister extends Module {
   val reg = RegInit(0.U(32.W))
 
   when (io.load) {
-    reg := Cat(io.dataLoad, 0.U(16.W))
+    reg := Cat(io.dataLoad, 0.U(16.W)) //bug:  reg := Cat(0.U(16.W), io.dataLoad)
   }.otherwise {
     reg := Cat(0.U, reg(31, 1))
   }
@@ -111,7 +111,7 @@ class QuotientRegister extends Module {
 
   val reg = RegInit(0.U(16.W))
 
-  reg := Cat(reg(14, 0), io.dataIn)
+  reg := Cat(reg(14, 0), io.dataIn) //bug: reg := Cat(reg(13, 0), io.dataIn)
 
   io.dataOut := reg
 }
@@ -127,9 +127,9 @@ class RemainderRegister extends Module {
   val reg = RegInit(0.U(32.W))
 
   when (io.write) {
-    reg := io.dataWrite
+    reg := io.dataWrite //bug: reg := io.dataIn
   }.otherwise {
-    reg := io.dataIn
+    reg := io.dataIn //bug: reg := io.dataWrite
   }
 
   io.dataOut := reg
